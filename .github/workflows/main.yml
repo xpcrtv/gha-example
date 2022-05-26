@@ -1,0 +1,11 @@
+name: Prepare and test
+
+on: [push]
+
+jobs:
+  prepare_cache:
+    uses: ./.github/workflows/_prepare-deps.yml
+  test:
+    uses: ./.github/workflows/_test.yml
+    needs:
+      - prepare_cache

@@ -8,4 +8,4 @@ jobs:
   test:
     uses: ./.github/workflows/_test.yml
     needs:
-      - prepare_cache
+      - prepare

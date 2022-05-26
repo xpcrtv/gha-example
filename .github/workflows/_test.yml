@@ -17,6 +17,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache dependencies
+        id: npmcache
         uses: actions/cache@v2
         with:
           path: |
@@ -25,8 +26,8 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        if: steps.npmcache.outputs.cache-hit != 'true'
+        run: npm ci --prefer-offline
 
       - name: Run Test
         run: npm run test

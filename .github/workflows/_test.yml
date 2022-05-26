@@ -1,10 +1,7 @@
-name: Test
-
 on: workflow_call
 
 env:
   NODE_VERSION: 14.19.3
-  TZ: 'Asia/Yekaterinburg'
 
 jobs:
   test:
@@ -17,7 +14,17 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            node_modules/
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: ${{ runner.os }}-
+
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Run Test

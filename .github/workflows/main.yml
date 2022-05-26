@@ -1,9 +1,8 @@
-name: Prepare and test
+name: Test app workflow
 
 on: [push]
 
 jobs:
-  
   prepare_cache:
     uses: ./.github/workflows/_prepare-deps.yml
   test:

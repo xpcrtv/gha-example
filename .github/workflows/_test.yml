@@ -1,3 +1,5 @@
+name: Run tests
+
 on: workflow_call
 
 env:
@@ -21,7 +23,6 @@ jobs:
             ~/.npm
             node_modules/
           key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: ${{ runner.os }}-
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'

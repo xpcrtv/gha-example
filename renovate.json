@@ -4,5 +4,15 @@
     "enabled": false
   },
   "rangeStrategy": "pin",
-  "groupName": "all"
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch"
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true
+  }
 }

@@ -1,0 +1,33 @@
+name: Run lint
+
+on: workflow_call
+
+env:
+  NODE_VERSION: 14.19.3
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache dependencies
+        id: npmcache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            node_modules/
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.npmcache.outputs.cache-hit != 'true'
+        run: npm ci --prefer-offline
+
+      - name: Run Lint
+        run: npm run lint

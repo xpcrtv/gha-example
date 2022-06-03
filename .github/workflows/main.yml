@@ -5,6 +5,10 @@ on: [push]
 jobs:
   prepare:
     uses: ./.github/workflows/_prepare-deps.yml
+  lint:
+    uses: ./.github/workflows/_lint.yml
+    needs:
+      - prepare
   test:
     uses: ./.github/workflows/_test.yml
     needs:
